@@ -12,19 +12,29 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
         width: theme.spacing(16),
         height: theme.spacing(16),
-      }
+      },
+      padding: theme.spacing(5)
+    },
+    layout: {
+        fontSize: '12px',
+        width: 'auto',
+        margin: theme.spacing(9,4,1,4)
     }
 }));
 
 
-const Home = props => {
+const Layout = props => {
     const classes = useStyles();
 
     return(
-        <div className={classes.root}>
-            Esté es el Home
-        </div>
+        <Fragment>
+            <main className={classes.layout}>
+                <Paper className={classes.root} elevation={2}>
+                    {props.children}
+                </Paper>
+            </main>
+        </Fragment>
     );
 }
 
-export default Home;
+export default Layout;

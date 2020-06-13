@@ -5,7 +5,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 /* Own Components */
-import Home from './components/Home/index';
+import Layout from './components/Layout/index';
 
 
 const theme = createMuiTheme({
@@ -22,7 +22,9 @@ const theme = createMuiTheme({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Home />
+      <Layout>
+        Este es el Layout
+      </Layout>
     </ThemeProvider>
   );
 };
