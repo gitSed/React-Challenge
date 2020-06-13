@@ -33,27 +33,45 @@ function ReadStatus(props) {
     );
 }
 
-const CardItem = props => {
+const CardItem = ({title, author, thumbnailSrc, createdHours, num_comments, actionClick}) => {
     const classes = useStyles();
     const [read, setRead] = useState(!1);
+
+    const handleClick = () => {
+        setRead(!0);
+
+        if(typeof actionClick === 'function'){
+            actionClick();
+        }
+    }
     
     return(
-        <Card className={classes.root}>
+        <Card className={classes.root} onClick={handleClick}>
             <CardActionArea>
                 <CardHeader
-                    title={props.title || 'Reddit Media'}
-                    subheader={`${props.author || 'Edgar Sandoval'}  ${props.created || '1'} hours ago`}
-                />                
-              <CardMedia
-                className={classes.media}
-                image={"https://b.thumbs.redditmedia.com/ZF37c_fUuPPTootrtYGvCy5vpbcIPT3Feo3uGNNchfE.jpg"}
-              />
-              <CardContent>
-                <Typography variant="body2" component="p" className={classes.cardInfo}>
-                    {`${props.num_comments || 10} comments`}
-                    <ReadStatus color={read ? 'primary' : 'secondary'}/>
-                </Typography>                
-              </CardContent>
+                    title={title || ''}
+                    subheader={`${author || ''} | ${createdHours || 0} hours ago`}
+                />
+                {
+                    thumbnailSrc ? (
+                        <CardMedia
+                            className={classes.media}
+                            image={thumbnailSrc}
+                        />
+                    ) : (
+                        <CardMedia
+                            className={classes.media}
+                            image={"https://www.freeiconspng.com/uploads/no-image-icon-23.jpg"}
+                            title="Image from freeiconspng.com"
+                        />
+                    )
+                }
+                <CardContent>
+                    <Typography variant="body2" component="p" className={classes.cardInfo}>
+                        {`${num_comments || 0} comments`}
+                        <ReadStatus color={read ? 'primary' : 'secondary'}/>
+                    </Typography>                
+                </CardContent>
             </CardActionArea>
         </Card>
     );

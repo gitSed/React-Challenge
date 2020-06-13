@@ -24,7 +24,17 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Layout>
-        <CardItem />>
+        <CardItem
+          title={'Reddit Media'}
+          author={'Edgar Sandoval'}
+          thumbnailSrc={null}
+          // thumbnailSrc={"https://b.thumbs.redditmedia.com/ZF37c_fUuPPTootrtYGvCy5vpbcIPT3Feo3uGNNchfE.jpg"}
+          createdHours={1}
+          num_comments={23}
+          actionClick={() => {
+            
+          }}
+        />
       </Layout>
     </ThemeProvider>
   );
