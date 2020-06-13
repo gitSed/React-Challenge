@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 
+/* Third party components */
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 /* Own Components */
 import Layout from './components/Layout/index';
+import CardItem from './components/CardItem/index';
 
 
 const theme = createMuiTheme({
@@ -23,7 +24,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Layout>
-        Este es el Layout
+        <CardItem></CardItem>
       </Layout>
     </ThemeProvider>
   );
