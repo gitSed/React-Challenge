@@ -1,53 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 
 const useStyles = makeStyles({
     root: {
-      maxWidth: 345,
+      maxWidth: 345
     },
     media: {
       height: 140,
     },
+    cardInfo: {
+        display:'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    }
 });
 
+function ReadStatus(props) {
+    return (
+      <VisibilityIcon {...props}>
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+      </VisibilityIcon>
+    );
+}
 
 const CardItem = props => {
     const classes = useStyles();
+    const [read, setRead] = useState(!1);
     
     return(
         <Card className={classes.root}>
             <CardActionArea>
+                <CardHeader
+                    title={props.title || 'Reddit Media'}
+                    subheader={`${props.author || 'Edgar Sandoval'}  ${props.created || '1'} hours ago`}
+                />                
               <CardMedia
                 className={classes.media}
-                image="/static/images/cards/contemplative-reptile.jpg"
+                image={"https://b.thumbs.redditmedia.com/ZF37c_fUuPPTootrtYGvCy5vpbcIPT3Feo3uGNNchfE.jpg"}
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  Lizard
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                  across all continents except Antarctica
-                </Typography>
+                <Typography variant="body2" component="p" className={classes.cardInfo}>
+                    {`${props.num_comments || 10} comments`}
+                    <ReadStatus color={read ? 'primary' : 'secondary'}/>
+                </Typography>                
               </CardContent>
             </CardActionArea>
-            <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
-            </CardActions>
         </Card>
     );
 }

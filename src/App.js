@@ -12,7 +12,7 @@ import CardItem from './components/CardItem/index';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#ff8673',
+      main: '#a0e2ba',
     },
     secondary: {
       main: '#eaea6c',
@@ -24,7 +24,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Layout>
-        <CardItem></CardItem>
+        <CardItem />>
       </Layout>
     </ThemeProvider>
   );
