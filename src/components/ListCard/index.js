@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 /* Own Components */
 import CardItem from '../CardItem';
+import PostSearch from '../PostSearch/index';
 
 
 const useStyles = makeStyles(theme => ({
