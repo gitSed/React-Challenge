@@ -6,10 +6,10 @@ const PostSearch = next => {
     const [posts, setPosts] = useState([]);
     const [after, setAfter] = useState('');
 
-    let cancel;
+    let token = { canceler: null };
     useEffect(() => {
 
-        Repository.searchRedditPosts(next, cancel)
+        Repository.searchRedditPosts(next, token)
         .then(resp => {
             if(resp.data){
                 let {data} = resp.data;
@@ -32,7 +32,7 @@ const PostSearch = next => {
         })
         .catch(err => console.log('err: ', err.message));
 
-        return () => cancel();
+        return () => token.canceler();
 
     }, [next]);
 

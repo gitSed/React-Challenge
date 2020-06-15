@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 /* Third party components */
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,29 +22,33 @@ const useStyles = makeStyles(theme => ({
 const observerOptions = {
     root: null,
     rootMargin: '0px',
-    threshold: 1.0
+    threshold: 0.75
 }
 
 
 const ListCard = props => {
     const classes = useStyles();
     const [posts, setPosts] = useState([]);
-    const [after, setAfter] = useState('');
+    const [after, setAfter] = useState(null);
     
     let elemRef = useRef();
 
-    let result = PostSearch(null);
+    let result = PostSearch(after);
 
     useEffect(() => {
         setPosts(result.posts);
+
+        observer.observe(elemRef.current);
+    }, [result.posts]);
+
+    useEffect(() => {
         setAfter(result.after);
 
         observer.observe(elemRef.current);
-    }, [result]);
+    }, [result.after]);
 
-
-    const intersectionFn = () => {
-        console.log('intersectionFn');
+    const intersectionFn = entries => {
+        console.log('after', after);
     }
 
     let observer = new IntersectionObserver(intersectionFn, observerOptions);
