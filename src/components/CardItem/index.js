@@ -24,6 +24,12 @@ const useStyles = makeStyles({
         display:'flex',
         alignItems: 'center',
         justifyContent: 'space-around'
+    },
+    textOver: {
+        maxWidth: '290px',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden'
     }
 });
 
@@ -51,6 +57,7 @@ const CardItem = ({title, author, thumbnailSrc, createdHours, num_comments, acti
         <Card className={classes.root} onClick={handleClick}>
             <CardActionArea>
                 <CardHeader
+                    className={classes.textOver}
                     title={title || ''}
                     subheader={`${author || ''} | ${createdHours || 0} hours ago`}
                 />
