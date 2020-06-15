@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 /* Third party components */
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,6 +22,12 @@ const useStyles = makeStyles(theme => ({
 
 const ListCard = props => {
     const classes = useStyles();
+
+    let result = PostSearch(null);
+
+    useEffect(() => {
+        console.log(result);
+    }, [result]);
 
     return(
         <div className={classes.root}>
