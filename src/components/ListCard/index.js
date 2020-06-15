@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 /* Third party components */
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,21 +19,38 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 1.0
+}
+
 
 const ListCard = props => {
     const classes = useStyles();
     const [posts, setPosts] = useState([]);
     const [after, setAfter] = useState('');
+    
+    let elemRef = useRef();
 
     let result = PostSearch(null);
 
     useEffect(() => {
         setPosts(result.posts);
         setAfter(result.after);
+
+        observer.observe(elemRef.current);
     }, [result]);
 
+
+    const intersectionFn = () => {
+        console.log('intersectionFn');
+    }
+
+    let observer = new IntersectionObserver(intersectionFn, observerOptions);
+
     return(
-        <div className={classes.root}>
+        <div className={classes.root} ref={elemRef}>
             <Grid container spacing={3}>
                 {
                     [...posts].map((post, idx) => (
