@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+/* Third party components */
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -13,7 +14,8 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const useStyles = makeStyles({
     root: {
-      maxWidth: 345
+      maxWidth: 345,
+      minWidth:330
     },
     media: {
       height: 140,
