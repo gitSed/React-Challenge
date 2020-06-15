@@ -20,7 +20,7 @@ const PostSearch = next => {
                         id: data.id,
                         title: data.title,
                         author: data.author,
-                        thumbnailSrc: data.thumbnail,
+                        thumbnailSrc: data.thumbnail.includes('http') ? data.thumbnail : null,
                         createdHours: Math.ceil(Math.abs(new Date() - new Date(data.created)) / 36e5),
                         num_comments: data.num_comments
                     }))
