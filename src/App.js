@@ -8,6 +8,10 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Layout from './components/Layout/index';
 import ListCard from './components/ListCard';
 
+/* Context */
+import NotificationProvider from './Context/NotificationContext';
+import PostProvider from './Context/PostsContext';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -17,16 +21,24 @@ const theme = createMuiTheme({
     secondary: {
       main: '#eaea6c',
     },
+    success: {
+      main: '#82C341',
+      contrastText: '#fff'
+    }
   },
 });
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Layout>
-        <ListCard />
-      </Layout>
-    </ThemeProvider>
+    <NotificationProvider>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <PostProvider>
+            <ListCard />
+          </PostProvider>
+        </Layout>
+      </ThemeProvider>
+    </NotificationProvider>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 /* Third party components */
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +10,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
+
+/* Context */
+import { NotificationContext } from '../../Context/NotificationContext';
+import { PostContext } from '../../Context/PostsContext';
 
 
 const useStyles = makeStyles({
@@ -30,6 +35,17 @@ const useStyles = makeStyles({
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
         overflow: 'hidden'
+    },
+    cardActions: {
+        display: 'flex'
+    },
+    cardAction: {
+        margin: '0 5px'
+    },
+    deleteAction: {
+        '&:hover': {
+            color: "#e43131",
+        },
     }
 });
 
@@ -41,9 +57,17 @@ function ReadStatus(props) {
     );
 }
 
-const CardItem = ({title, author, thumbnailSrc, createdHours, num_comments, actionClick}) => {
+const CardItem = ({id, title, author, thumbnailSrc, createdHours, num_comments, actionClick}) => {
     const classes = useStyles();
     const [read, setRead] = useState(!1);
+    const [value, setValue] = useState('');
+
+    const { showNotification } = useContext(NotificationContext);
+    const { removePostItem } = useContext(PostContext);
+
+    useEffect(() => {
+        setValue(id);
+    }, []);
 
     const handleClick = () => {
         setRead(!0);
@@ -51,6 +75,11 @@ const CardItem = ({title, author, thumbnailSrc, createdHours, num_comments, acti
         if(typeof actionClick === 'function'){
             actionClick();
         }
+    }
+
+    const handleDeleteCard = () => {
+        removePostItem(value);
+        showNotification({ message: 'Post eliminado satisfactoriamente', type: 'success' });
     }
     
     return(
@@ -78,7 +107,10 @@ const CardItem = ({title, author, thumbnailSrc, createdHours, num_comments, acti
                 <CardContent>
                     <Typography variant="body2" component="p" className={classes.cardInfo}>
                         {`${num_comments || 0} comments`}
-                        <ReadStatus color={read ? 'primary' : 'secondary'}/>
+                        <span className={classes.cardActions}>
+                            <ReadStatus className={classes.cardAction} color={read ? 'primary' : 'secondary'}/>
+                            <DeleteTwoToneIcon className={classes.cardAction, classes.deleteAction} onClick={handleDeleteCard} />
+                        </span>
                     </Typography>                
                 </CardContent>
             </CardActionArea>

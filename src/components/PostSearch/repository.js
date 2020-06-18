@@ -1,13 +1,10 @@
 import Axios from 'axios';
 
-const url = 'https://www.reddit.com/r/all/top/.json?t=all&limit=10';
+const searchRedditPosts = async (next, token, endpoint) => {
 
+    let afterParam = (next && next !== '') ? `&after=${next}` : '';
 
-const searchRedditPosts = async (next, token) => {
-
-    let afterParam = (next || next !== '') ? `&after=${next}` : '';
-
-    return await Axios.get(`${url}${afterParam}`, { cancelToken: new Axios.CancelToken(c => token.canceler = c) })
+    return await Axios.get(`${endpoint}${afterParam}`, { cancelToken: new Axios.CancelToken(c => token.canceler = c) })
     .then(resp => {
         if(resp.status === 200){
             return Promise.resolve({ data: resp.data });
